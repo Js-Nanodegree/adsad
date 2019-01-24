@@ -1,81 +1,47 @@
 import React, { Component } from 'react';
+import SimpleForm from './Form'
+import showResults from './Redux/showResult'
+import { Provider } from "react-redux"
+import store from "./Redux/store";
+import Dad from './dad'
 
 import './App.css';
-
-
-
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state={}    
+    this.state = {popupVisible: false}
   }
+
+  addToken=()=>{this.setState({popupVisible: true})}
+  ManageToken=()=>{this.setState({popupVisible: false})}
+  
+  setUser =(popupVisible)=>{
+    // const {socket}=this.state
+    // socket.emit(USER_CONNECTED,popupVisible)
+    this.setState({popupVisible})
+  }
+
   render() {
-
-
-    const header =(<div>
-    <button className='Btn_new'> 
-      <p>New Token</p>
-    </button> 
-    <button className='Btn_new'>
-      <p>New Token</p>
-    </button> 
-    <button className='Btn_new'>
-      <p>New Token</p>
-    </button>
-    <button className='Btn_new'>
-      <p>New Token</p>
-    </button><button className='Btn_new'>
-      <p>New Token</p>
-    </button>
-  </div>)
-    
-    const Profile =(
-    <div>
-      <table className='Table_cenr'>
-      <tbody>
-        <tr> 
-          <td className='T_name'>TOKEN NAME</td>
-          <td className='.T_ame'>{this.state.TokenName}</td>
-        </tr>
-        <tr> 
-          <td>Индификатор токена</td>
-          <td>{this.state.TokenID}</td>
-        </tr>
-        <tr> 
-          <td>Публичный ключ</td>
-          <td>{this.state.PublicID}</td>
-        </tr>        
-        <tr> 
-          <td>Дата создания ключа</td>
-          <td>{this.state.TimeCreate}</td>
-        </tr>        
-        <tr> 
-          <td>Владелец ключа</td>
-          <td>{this.state.username}</td>
-        </tr>        
-        <tr> 
-          <td>Права</td>
-          <td>
-          <div>
-            <p>Права на чтение</p>
-            <p>{this.state.RootR}</p>
-            <p>Права на чтение</p>
-            <p>{this.state.RootW}</p>
-          </div></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>)
-
-
-
+    const{popupVisible} =this.state
     return (
-      <div className="div">
-        {header}
-        {Profile}
+      <div>
+      {
+        !popupVisible?   <div>
+        <button onClick={this.addToken} >Создать токен</button>
+          </div>
+        :
+        <div>
+          <Provider store={store}>
+            <SimpleForm onSubmit={showResults} setUser={this.setUser} />
+            {/* <Values form="simple" /> */}
+          </Provider>
+          <dat />
+          <button setState={this.ManageToken}>Отправить</button>
+        </div>
+      }
       </div>
-    );
+    )
   }
 }
 
