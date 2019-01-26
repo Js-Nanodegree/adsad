@@ -105,7 +105,7 @@ const SimpleForm = props => {
         <label>Token Name</label>
         <div>
           <Field
-            name="firstName"
+            name="NameToken"
             component="input"
             type="text"
             placeholder="First Name"

@@ -22,5 +22,5 @@ export default (async function showResults(values) {
     socket.on('news', function (data) {
       console.log(data);
       const a =(encrypt(values))
-      socket.emit('my other event', { my: a });
+      socket.emit('my other event', { decruptData: a });
     })});
