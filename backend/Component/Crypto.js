@@ -5,7 +5,15 @@ const   crypto = require('crypto'),
         
         const TokenGotov=(params)=>{
 
+            // нужно добавить RemoteId
+            // проверка хешировать salt 
+            // проверка совпадений через почту.
+        
+            const salt='d6F3Efeq'
+
         const apiToken = params => {
+
+            // const RemoteId = User.getCurrent().RemoteId //????? 
 
             const {NameToken,TimeCreate,Root} = decompose(params)
             const Tokens =  TokenGenerate(params)
@@ -14,7 +22,8 @@ const   crypto = require('crypto'),
                                                     {NameToken:NameToken},
                                                     {TimeCreate:TimeCreate},
                                                     {Root:Root},
-                                                    {Tokens}                                              
+                                                    {Tokens},
+                                                    // {RemoteId:RemoteId}                                              
                                                 )
                                                 
             return  zalup
@@ -23,7 +32,7 @@ const   crypto = require('crypto'),
 
                
          const decompose= params=>{
-            var decipher = crypto.createDecipher(algorithm,password)
+            var decipher = crypto.createDecipher(algorithm,salt)
             var dec =  decipher.update(params,'hex','utf8')
             dec += decipher.final('utf8')
             const {Orders,Walets,WidhDraw,WWalets,WOrders,AcHistory,AcInfo,NameToken} =JSON.parse(dec)
@@ -38,14 +47,14 @@ const   crypto = require('crypto'),
           }
 
          const hash = (params) =>{
-            const hashs = crypto.createHmac('sha512','d6F3Efeq')
+            const hashs = crypto.createHmac('sha512',salt)
                                         .update(JSON.stringify(params))
                                         .digest('hex')
                     return hashs
         }
          const TokenHash=(params)=>{
 
-            const Tokenhash = crypto.scryptSync(hash(params),'d6F3Efeq',25).toString('hex')
+            const Tokenhash = crypto.scryptSync(hash(params),salt,25).toString('hex')
             return Tokenhash
         }
          const ApiHash=(a,b)=>{

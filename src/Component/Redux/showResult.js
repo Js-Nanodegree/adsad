@@ -15,12 +15,14 @@ function encrypt(text){
 
 
 //Crypto шифровка проверить на сокетах как расшифровывает....
+// назнчить новости сокет Io нужно заменять сообщения после клика очишать через 30 сек
+// проверить редукс форм и его состаяния боюсь что может быть переписать статы надо будет но работает а отлично именно надо научиться сбрасывать счетчик
 
 export default (async function showResults(values) {
   var socket = io.connect('http://localhost:4000/');
-  socket.on('news', function (data) {
-    console.log(data)
-  })
+  // socket.on('news', function (data) {
+  //   console.log(data)
+  // })
     const a =(encrypt(values))
     socket.emit('my other event', { decruptData: a });
   })

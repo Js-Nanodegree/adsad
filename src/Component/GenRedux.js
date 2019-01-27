@@ -4,14 +4,12 @@ import { Field, reduxForm } from 'redux-form';
 // необходимо добавить пропс текущего времени.
 // Проверить форму заполнения толькоминимум 5 символов
 // узнать где находяться стеэты.
-// замена клавишы при изменения стейта
 // добавление текста при заполнениив поле сверху 
 
 
 
-const SimpleForm = props => {
+const GenRedux = props => {
   
-
   const { handleSubmit, pristine, reset, submitting } = props;
   return (
     <form onSubmit={handleSubmit}>
@@ -127,4 +125,4 @@ const SimpleForm = props => {
 
 export default reduxForm({
   form: 'simple', // a unique identifier for this form
-})(SimpleForm);
+})(GenRedux);

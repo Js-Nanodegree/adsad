@@ -18,15 +18,15 @@ module.exports.connect = (uri) => {
         RemoteId: {type:String, unique:false, default:undefined },        
         NameToken: {type:String, unique:false, default:undefined },
         TimeCreate: {type:Date, default:Date.now },
-        Root: {
-                    Orders:{type:Boolean,  required:false,  default:false},
-                    Walets:{type:Boolean,  required:false,  default:false},
-                    WidhDraw:{type:Boolean,  required:false,  default:false},
-                    WWalets:{type:Boolean,  required:false,  default:false},
-                    WOrders:{type:Boolean,  required:false,  default:false},
-                    AcHistory:{type:Boolean,  required:false,  default:false},
-                    AcInfo:{type:Boolean,  required:false,  default:false}
-        },
+        Root: [{
+                    Orders:{type:Boolean},
+                    Walets:{type:Boolean},
+                    WidhDraw:{type:Boolean},
+                    WWalets:{type:Boolean},
+                    WOrders:{type:Boolean},
+                    AcHistory:{type:Boolean},
+                    AcInfo:{type:Boolean}
+        }],
         Tokens: [{
                     ApiKey:{type:String, default:undefined },
                     SecKey:{type:String,  default:undefined },
