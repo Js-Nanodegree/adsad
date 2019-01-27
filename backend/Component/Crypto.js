@@ -9,7 +9,7 @@ const   crypto = require('crypto'),
             // проверка хешировать salt 
             // проверка совпадений через почту.
         
-            const salt='d6F3Efeq'
+        const salt='d6F3Efeq'
 
         const apiToken = params => {
 
@@ -70,12 +70,7 @@ const   crypto = require('crypto'),
             const Apihash =crypto.createHmac('sha512', b).update(JSON.stringify(a)).digest('hex')
             return Apihash
         }
-         const TokenGenerate=  params=>{
-
-            
-            const TokenGen = Object.assign()
-                return TokenGen
-        }
+         
         return apiToken(params)
     }
         

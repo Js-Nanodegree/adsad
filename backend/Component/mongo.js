@@ -10,6 +10,10 @@ module.exports.connect = (uri) => {
     process.exit(1);
   });
 
+// назначить методы проверки
+// добавить e-mail
+// добавить JWT Session
+// добавить шифрование
 
  const ApiTokenSchema = new mongoose.Schema( 
     {

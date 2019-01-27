@@ -13,6 +13,11 @@ app.use(express.static(PublicPath))
 
 const decrypt =require('./Component/Crypto') 
 
+// добавить сокет io вывода всего списка
+// добавить проверки 
+// первая проверка по email
+// установить стейты напрвляемые в реакт.
+// облегчить схему.
 
 io.on('connection', function (socket) {
     socket.on('my other event', function (data) {
