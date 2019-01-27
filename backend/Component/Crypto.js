@@ -14,9 +14,7 @@ const   crypto = require('crypto'),
                                                     {NameToken:NameToken},
                                                     {TimeCreate:TimeCreate},
                                                     {Root:Root},
-                                                    {Tokens}
-
-                                                
+                                                    {Tokens}                                              
                                                 )
                                                 
             return  zalup
@@ -71,7 +69,6 @@ const   crypto = require('crypto'),
                 return TokenGen
         }
         return apiToken(params)
-        
     }
         
-        module.exports =TokenGotov
+module.exports =TokenGotov

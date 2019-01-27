@@ -17,10 +17,10 @@ function encrypt(text){
 //Crypto шифровка проверить на сокетах как расшифровывает....
 
 export default (async function showResults(values) {
-    console.log(values)
-    var socket = io.connect('http://localhost:4000/');
-    socket.on('news', function (data) {
-      console.log(data);
-      const a =(encrypt(values))
-      socket.emit('my other event', { decruptData: a });
-    })});
+  var socket = io.connect('http://localhost:4000/');
+  socket.on('news', function (data) {
+    console.log(data)
+  })
+    const a =(encrypt(values))
+    socket.emit('my other event', { decruptData: a });
+  })

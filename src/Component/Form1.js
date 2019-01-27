@@ -3,6 +3,9 @@ import SimpleForm from './FormRedux'
 import showResults from './Redux/showResult'
 import { Provider } from "react-redux"
 import store from "./Redux/store";
+import io from 'socket.io-client'
+
+
 
 class App extends Component {
   constructor(props) {
@@ -15,10 +18,16 @@ class App extends Component {
   
   setUser =(popupVisible)=>{
     this.setState({popupVisible})
+    // var socket = io.connect('http://localhost:4000/');
+    // socket.on('news', function (data) {
+    //   console.log(data)
+    // })
+    // this.setState({popupVisible})
   }
 
   render() {
     const{popupVisible} =this.state
+    
     return (
       <div>
       {

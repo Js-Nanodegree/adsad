@@ -5,15 +5,16 @@ const http = require('http')
 const port= process.env.PORT || 4000
 const path =require('path')
 const PublicPath = path.join(__dirname,'../public')
-
+const server =http.createServer(app)
+const io =socketio(server)
+require('./Component/mongo').connect('mongodb://localhost:27017/onelife')
 const ApiGenerate =require('./Component/mongo')
 
 
 
 app.use(express.static(PublicPath))
 
-const server =http.createServer(app)
-const io =socketio(server)
+
 
 const decrypt =require('./Component/Crypto')
 
@@ -24,12 +25,12 @@ const dasta =    {"NameToken":'Allo',
 
 
 io.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
     socket.on('my other event', function (data) {
       const {decruptData}=data
       
       const a =decrypt(decruptData)
-      const c = ApiGenerate(a)
+      const c = ApiGenerate(a).save((data)=>{socket.emit('news',a)})
+                              // .then()
       // console.log(a)
       return c
     });
