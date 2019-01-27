@@ -18,10 +18,10 @@ const SimpleForm = props => {
         <label>Input Mail Code</label>
         <div>
           <Field
-            name="NameToken"
+            name="VerificationCode"
             component="input"
             type="text"
-            placeholder="NameToken"
+            placeholder="Input Mail Code"
           />
         </div>
       </div>

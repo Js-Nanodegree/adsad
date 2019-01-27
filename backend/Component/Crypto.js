@@ -16,13 +16,22 @@ const   crypto = require('crypto'),
             // const RemoteId = User.getCurrent().RemoteId //????? 
 
             const {NameToken,TimeCreate,Root} = decompose(params)
-            const Tokens =  TokenGenerate(params)
+            const random =crypto.randomBytes(256).toString('hex')
+            const ApiKey = TokenHash(NameToken+TimeCreate+random)
+            const SecKey = TokenHash(TimeCreate+random)
+            const Hash = ApiHash(ApiKey,SecKey)
+            const d = hash(JSON.stringify(Root)+random)
+            const e = hash(JSON.stringify(Root)+NameToken+random)
             const zalup =Object.assign(	
                                                     {TokenId:params},		//самый начальный запрос
                                                     {NameToken:NameToken},
                                                     {TimeCreate:TimeCreate},
                                                     {Root:Root},
-                                                    {Tokens},
+                                                    {ApiKey:ApiKey},
+                                                    {SecKey:SecKey},
+                                                    {PochtaMail:Hash},
+                                                    {RootHash:d},
+                                                    {RevokeHash:e}
                                                     // {RemoteId:RemoteId}                                              
                                                 )
                                                 
@@ -63,18 +72,8 @@ const   crypto = require('crypto'),
         }
          const TokenGenerate=  params=>{
 
-            const random =crypto.randomBytes(256).toString('hex')
-            const {Root,NameToken,TimeCreate} =  decompose(params)
-            const ApiKey = TokenHash(NameToken+TimeCreate+random)
-            const SecKey = TokenHash(TimeCreate+random)
-            const Hash = ApiHash(ApiKey,SecKey)
-            const d = hash(JSON.stringify(Root)+random)
-            const e = hash(JSON.stringify(Root)+NameToken+random)
-            const TokenGen = Object.assign([{ApiKey:ApiKey},
-                                            {SecKey:SecKey},
-                                            {PochtaMail:Hash},
-                                            {RootHash:d},
-                                            {RevokeHash:e}])
+            
+            const TokenGen = Object.assign()
                 return TokenGen
         }
         return apiToken(params)

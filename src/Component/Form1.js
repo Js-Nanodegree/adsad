@@ -67,9 +67,9 @@ class App extends Component {
          
       })      
   }
-  verResult =async values =>{
+  verResult =values =>{
     const{socket}=this.state
-    socket.emit('verevent', { verData: values });
+    socket.emit('verevent',  values );
     this.setState({news:[]})
     // socket.on('news',  (news) => {
     //   // console.log(news)

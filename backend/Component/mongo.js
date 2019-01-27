@@ -11,7 +11,7 @@ module.exports.connect = (uri) => {
   });
 
 
-  module.exports = ApiTokenSchema = mongoose.model('ApiToken', 
+ const ApiTokenSchema = new mongoose.Schema( 
     {
         ObjectId: {type:mongoose.Schema.Types.ObjectId}, 
         e_mail: {type:String, unique:false, default:undefined }, 
@@ -27,16 +27,21 @@ module.exports.connect = (uri) => {
                     AcHistory:{type:Boolean},
                     AcInfo:{type:Boolean}
         }],
-        Tokens: [{
+        
                     ApiKey:{type:String, default:undefined },
                     SecKey:{type:String,  default:undefined },
                     PochtaMail:{type:String,  default:undefined },
                     RootHash:{type:String, default:undefined },
                     RevokeHash:{type:String,  default:undefined },
-                }], 
+                 
         TokenId: {type:String, unique:false, default:undefined }, 
-    })
- const ApiGenerate = data=> new ApiTokenSchema(data);
- module.exports = ApiGenerate
+    }, {versionKey: false})
+
+    ApiTokenSchema.methods = {
+      checkPochtaMail: function checkPassword(param) {
+        return this.param === this.PochtaMail
+      },
+    }
+module.exports = new mongoose.model('ApiTokenSchema',ApiTokenSchema)
 
 }
