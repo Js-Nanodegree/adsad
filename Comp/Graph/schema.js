@@ -1,11 +1,16 @@
-const { ApolloServer,gql  } =require ('apollo-server-express');
+const { gql  } =require ('apollo-server-express');
 
-export const schema = gql`
+const schema = gql`
   type Query {
+    users: [User!]
+    user(id: ID!): User
     me: User
   }
 
   type User {
+    id: ID!
     username: String!
   }
 `;
+
+module.exports=schema
