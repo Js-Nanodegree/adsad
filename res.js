@@ -35,7 +35,7 @@ const urlSend=`exs.cash/${apiPath}&${queryParams}`
 const bodys =body
 const headers =[{nonce:nonce},{apiKey:apiKey},{shex:shex}]
 
-console.log('На отправку со стороны клиента'+urlSend,bodys,headers)
+// console.log('На отправку со стороны клиента'+urlSend,bodys,headers)
 // это отправляем запрос
 
 
@@ -50,10 +50,26 @@ const a = `{${gurl}                        // Globall
             ${req_header_nonce}
             ${JSON.stringify(req_body)}}` }
 
-const shex =crypto.createHmac('sha512', apiSecret).update(signature_client).digest('hex')
+const shexServer =crypto.createHmac('sha512', apiSecret).update(signature_client).digest('hex')
+const aff=apiPath.split("?")
+const caca = aff[1]
+// const ada = caca.slice()
+const checked = (shexServer,req_header_nonce,apiPath)=>{
+    if(!(shexServer===shex)){
+        if(!(req_header_nonce===Date.now().toString)){
+            if(!(caca[1]===caca[1])){console.log(caca)
+                if(!(caca[2]===caca[2])){return console.log('OK')}
+                else console.log('права токена не соваодают')
+            }else console.log('ИД не зарегистрированный в систему')
+        }else console.log('вы не совпадаете по времени') 
+    }else console.log('хеши не совподают')
 
 
-console.log(headers)
+
+}
+
+console.log(caca)
+console.log(checked())
 
 
 
