@@ -1,27 +1,11 @@
-const express =require ('express');
-const { ApolloServer,gql  } =require ('apollo-server-express');
-
+const express = require ('express');
+const hapi = require('hapi')
+const { ApolloServer } =require ('apollo-server-express');
 const app = express();
 
-const schema = gql`
-  type Query {
-    me: User
-  }
 
-  type User {
-    username: String!
-  }
-`;
 
-const resolvers = {
-  Query: {
-    me: () => {
-      return {
-        username: 'Robin Wieruch',
-      };
-    },
-  },
-};
+const schema = './Comp/Graph/schema'
 
 const server = new ApolloServer({
   typeDefs: schema,
