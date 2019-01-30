@@ -10,7 +10,7 @@ const queryParams = 'type=price'
 const body = {}
 let signature = `/api/${apiPath}${nonce}${JSON.stringify(body)}`
 
-const sig = crypto.createHmac('sha384', apiSecret).update(signature)
+const sig = crypto.createHmac('sha384', apiSecret).update(signature).digest('hex')
 const shex = sig.digest('hex')
 
 const options = {
