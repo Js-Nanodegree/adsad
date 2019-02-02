@@ -6,16 +6,22 @@ const app = express();
 const schema = require('./Comp/Graph/schema')
 const resolvers = require('./Comp/Graph/resolvers')
 
-const c =require('./res')
+// const c =require('./res')
 
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
+  context: ({req}) => {
+    const headers = req.headers
+    const body = req.body
+    return { headers, body }
+  },
+  playground:true
 });
 
 server.applyMiddleware({ app, path: '/a' });
 
-console.log(c)
+// console.log(c)
 
 
 app.listen({ port: 8000 }, () => {

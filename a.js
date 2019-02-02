@@ -4,17 +4,17 @@ const request = require('request')
 const apiKey = 'rTB4jhWoSS7BbV9LK39gFRnmThthR945203I0D07U27'
 const apiSecret = 'jwiarANXsioKbSWzGxXrc878SzhPpisB9xmcLculrZx'
 
-const apiPath = 'v2/auth/r/alerts'
+const apiPath = 'a'
 const nonce = Date.now().toString()
 const queryParams = 'type=price'
-const body = {}
+const body = {"query":"{users{username id}}"}
 let signature = `/api/${apiPath}${nonce}${JSON.stringify(body)}`
 
-const sig = crypto.createHmac('sha384', apiSecret).update(signature).digest('hex')
-const shex = sig.digest('hex')
+const shex = crypto.createHmac('sha512', apiSecret).update(signature).digest('hex')
+
 
 const options = {
-  url: `https://api.bitfinex.com/${apiPath}?${queryParams}`,
+  url: `http://localhost:8000/${apiPath}`,
   headers: {
     'bfx-nonce': nonce,
     'bfx-apikey': apiKey,
@@ -24,5 +24,7 @@ const options = {
   json: true
 }
 request.post(options, (error, response, body) => {
-  console.log(body);
+  console.log(response.body);
+  const {data:{users:a}} =response.body
+  console.log(a)
 })

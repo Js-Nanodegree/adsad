@@ -14,7 +14,9 @@ const me = users[1];
 const resolvers = {
   Query: {
     users: () => {
-      return Object.values(users);
+      let a=users
+      console.log(a)
+      return (Object.values(users));
     },
     user: (parent, { id }) => {
       return users[id];
