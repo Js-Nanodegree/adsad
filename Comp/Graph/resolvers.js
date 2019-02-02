@@ -8,8 +8,12 @@ let users = {
     username: 'Dave Davids',
   },
 };
+let time ={
+  time:`${Date.now().toString()}`
+}
 
 const me = users[1];
+
 
 const resolvers = {
   Query: {
@@ -24,7 +28,11 @@ const resolvers = {
     me: () => {
       return me;
     },
+    time: () => {
+      return {time:`${Date.now().toString()}`}
+    },
   },
 };
+
 
 module.exports=resolvers
