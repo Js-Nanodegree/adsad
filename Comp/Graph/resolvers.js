@@ -25,7 +25,8 @@ const resolvers = {
     user: (parent, { id }) => {
       return users[id];
     },
-    me: () => {
+    me: (root, args, context) => {
+      console.log({headers: context.headers, body: context.body, metods: context.headers.metods})
       return me;
     },
     time: () => {
