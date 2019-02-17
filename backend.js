@@ -14,7 +14,7 @@ wss.on('connection', function connection(ws) {
           
       var number = Math.round(Math.random() * 0xFFFFFF);
       ws.send(number)
-      setTimeout(sendNumber, 10000)
+      setTimeout(sendNumber, 100)
     }}
     sendNumber()
     

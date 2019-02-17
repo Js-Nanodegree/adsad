@@ -1,9 +1,26 @@
 const ws = require('ws')
 const w = new ws('ws://localhost:3000/api/vw1', { headers: { platform: 'EXS.CashWebSocket' } })
+const crypo =require('crypto-js')
 
-const msg = JSON.stringify({ id: 20, method: 'order.subscribe', params: [77, 'BTCRUB'] })
+const apiKey ='fjknasdjfndsk'
+const apiSec ='1'
+const authNonce = Date.now()*1000
+const authPayload=apiKey+authNonce
+const authSig = crypo.HmacSHA512(authPayload,apiSec).toString(crypo.enc.Hex)
 
-const Ci =()=>setInterval(msg,300)
+
+const msg = JSON.stringify(
+	{
+		apiKey,
+		authSig,
+		authNonce,
+		authPayload,
+		event: 'auth',
+		metod:'order.subcribe',
+		params:'["BTCUSD",auth,2]' //?
+	  }
+)
+
 
 w.on('open', () => w.send(msg))
 // w.send(msg))
