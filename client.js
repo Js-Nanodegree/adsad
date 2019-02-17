@@ -1,15 +1,13 @@
 const ws = require('ws')
-const w = new ws('ws://localhost:8000/wss1')
+const w = new ws('ws://localhost:3000/api/vw1', { headers: { platform: 'EXS.CashWebSocket' } })
 
-const clientWs =()=>{
-    
-  w.on('message', (msg) => { console.log (msg)})
-  let msg = JSON.stringify({ 
-  event: 'subscribe', 
-  channel: 'ticker', 
-  symbol: 'tBTCUSD' 
-  })
-  w.on('open', () => w.send(msg))
-}
+const msg = JSON.stringify({ id: 20, method: 'order.subscribe', params: [77, 'BTCRUB'] })
 
-clientWs()
+const Ci =()=>setInterval(msg,300)
+
+w.on('open', () => w.send(msg))
+// w.send(msg))
+
+w.on('message', msg => {
+	console.log(msg)
+})
