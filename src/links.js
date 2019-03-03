@@ -24,7 +24,7 @@ export const errorLink = onError(({ graphQLErrors, networkError }) => {
 export const subscriptionLink = (config = {}) =>
   new WebSocketLink({
     uri:
-      process.env.NODE_ENV === 'production'
+      process.env.NODE_ENV !== 'production'
         ? 'ws://localhost:3010/subscriptions'
         : 'wss://api.githunt.com/subscriptions',
     options: { reconnect: true },

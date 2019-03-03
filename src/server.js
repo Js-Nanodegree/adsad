@@ -29,7 +29,7 @@ if (process.env.PORT) {
 }
 
 const API_HOST =
-  process.env.NODE_ENV === 'production'
+  process.env.NODE_ENV !== 'production'
     ? 'http://localhost:3010'
     : 'https://api.githunt.com';
 

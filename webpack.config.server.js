@@ -4,6 +4,7 @@ const path = require('path');
 const DEV = process.env.NODE_ENV !== 'production';
 
 module.exports = {
+  mode: 'development',
   bail: !DEV,
   devtool: DEV ? 'cheap-module-source-map' : 'source-map',
   target: 'node',
@@ -29,6 +30,8 @@ module.exports = {
       },
       {
         test: /\.json$/,
+        exclude: /(node_modules)/,
+
         loader: 'json-loader',
       },
       {

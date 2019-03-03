@@ -1,9 +1,11 @@
 const webpack = require('webpack');
 const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const DEV = process.env.NODE_ENV !== 'production';
 
 module.exports = {
+  mode: 'development',
   bail: !DEV,
   devtool: DEV ? 'cheap-module-source-map' : 'source-map',
   entry: './src/client.js',
@@ -25,6 +27,8 @@ module.exports = {
       },
       {
         test: /\.json$/,
+        exclude: /(node_modules)/,
+
         loader: 'json-loader',
       },
       {
@@ -41,18 +45,15 @@ module.exports = {
       },
     }),
     !DEV &&
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          screw_ie8: true, // React doesn't support IE8
-          warnings: false,
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        uglifyOptions: {
+          compress: false,
+          ecma: 6,
+          mangle: true,
         },
-        mangle: {
-          screw_ie8: true,
-        },
-        output: {
-          comments: true,
-          screw_ie8: true,
-        },
+        sourceMap: true,
       }),
     DEV && new webpack.optimize.AggressiveMergingPlugin(),
   ].filter(Boolean),
