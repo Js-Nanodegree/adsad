@@ -35,11 +35,10 @@ const API_HOST =
 
 const app = new Express();
 
-const apiProxy = proxy({ target: API_HOST, changeOrigin: true });
-app.use('/graphql', apiProxy);
-app.use('/graphiql', apiProxy);
-app.use('/login', apiProxy);
-app.use('/logout', apiProxy);
+// const apiProxy = proxy({ target: API_HOST, changeOrigin: true });
+
+// app.use('/login', apiProxy);
+// app.use('/logout', apiProxy);
 
 if (process.env.NODE_ENV === 'production') {
   // In production we want to serve our JS from a file on the filesystem.
@@ -97,9 +96,57 @@ app.use((req, res) => {
     });
 });
 
-app.listen(PORT, () =>
-  console.log(
-    // eslint-disable-line no-console
-    `App Server is now running on http://localhost:${PORT}`
-  )
-);
+// #################Create Server#####################
+
+import { createServer } from 'http';
+
+const server = createServer(app);
+
+// #################Apollo Server#####################
+
+import services from './Apollo';
+
+import Loadable, { Capture } from 'react-loadable';
+
+if (process.env.NODE_ENV !== 'development') {
+  var stats = require('../../dist/react-loadable.json');
+}
+
+const serviceNames = Object.keys(services);
+console.log(Object.keys(services));
+
+for (let i = 0; i < serviceNames.length; i += 1) {
+  console.log(serviceNames[i]);
+
+  const name = serviceNames[i];
+  console.log(name);
+  switch (name) {
+    case 'graphql':
+      services[name].applyMiddleware({ app });
+      break;
+    case 'subscriptions':
+      Loadable.preloadAll().then(() => {
+        server.listen(process.env.PORT ? process.env.PORT : 8000, () => {
+          console.log(
+            'Listening on port ' +
+              (process.env.PORT ? process.env.PORT : 8000) +
+              '!'
+          );
+          services[name](server);
+        });
+      });
+      break;
+    default:
+      app.use(`/${name}`, services[name]);
+      break;
+  }
+}
+
+// #################Apollo Server#####################
+
+// server.listen(PORT, () =>
+//   console.log(
+//     // eslint-disable-line no-console
+//     `App Server is now running on http://localhost:${PORT}`
+//   )
+// );

@@ -43,6 +43,7 @@
     "@babel/plugin-proposal-throw-expressions": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-syntax-import-meta": "^7.0.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.2.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
@@ -81,12 +82,15 @@
     "apollo-link-http": "^1.5.3",
     "apollo-link-persisted-queries": "^0.2.0",
     "apollo-link-ws": "^1.0.7",
+    "apollo-server-express": "^2.4.8",
     "apollo-utilities": "^1.0.1",
     "babel-plugin-graphql-tag": "^2.0.0",
     "classnames": "^2.2.5",
     "express": "^4.16.2",
     "graphql": "^14.1.1",
     "graphql-anywhere": "^4.0.0",
+    "graphql-subscriptions": "^1.0.0",
+    "graphql-tools": "^4.0.4",
     "http-proxy-middleware": "^0.19.1",
     "immutability-helper": "^3.0.0",
     "node-emoji": "^1.8.1",
@@ -97,10 +101,11 @@
     "react-apollo": "^2.1.0-rc.4",
     "react-dom": "^16.0.0",
     "react-ga": "^2.3.5",
+    "react-loadable": "^5.5.0",
     "react-native-web": "^0.10.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-timeago": "^4.4.0",
-    "subscriptions-transport-ws": "^0.9.1"
+    "subscriptions-transport-ws": "^0.9.15"
   }
 }
