@@ -6,6 +6,5 @@ dev.sqlite3
 npm-debug.log
 bundle.js
 server_bundle.js
-extracted_queries.json
 build
 yarn.lock
