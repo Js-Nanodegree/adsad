@@ -1,21 +1,30 @@
+import AppModule from './graphql/modules';
 import { ApolloServer } from 'apollo-server-express';
-import { makeExecutableSchema } from 'graphql-tools';
-import Resolvers from './resolvers';
-import Schema from './schema';
 
-export default params => {
-  console.log(params);
-  const executableSchema = makeExecutableSchema({
-    typeDefs: Schema,
-    resolvers: Resolvers,
-  });
 
-  const server = new ApolloServer({
-    schema: executableSchema,
-    context: async ({ req }) => ({ ...req }),
-  });
+const { schema, context } = AppModule;
 
-  return server;
-};
+const apolloServer = new ApolloServer({
+  schema,
+  context,
+  formatError: error => {
+    console.log(error); // TODO only dev
 
-// npx babel-node server
+    if (error.message.indexOf('get_method') != -1) return 'bad request';
+
+    if (error.message.indexOf('Cannot query field') != -1)
+      return 'incorrect request';
+
+    if (error.message.indexOf('Cannot read property') != -1)
+      return 'incorrect request';
+
+    if (error.message.indexOf('required but not provided') != -1)
+      return 'incorrect arguments';
+
+    if (error.message === 'AUTH_FAILED') return 'authentication failed';
+  },
+
+  playground: true, // TODO only dev
+});
+
+export default {graphql:  apolloServer}
