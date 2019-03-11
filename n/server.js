@@ -15,7 +15,8 @@ const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
   subscriptions: {
-    onConnect: (req,res)=>console.log(req),
+    onConnect: (req,res)=>console.log('add'),
+    onDisconnect:(req,res) =>console.log('exit')
   },
   tracing: true
 });
