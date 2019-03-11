@@ -13,10 +13,13 @@ const typeDefs = gql`
 	}
 	type Silk{
 		error:String
-		result:String
+		result:Status
 		id:String
 		method:String
 
+	}
+	type Status{
+		status:String
 	}
 `
 

@@ -3,6 +3,7 @@ const { PubSub } =require ('apollo-server')
 const WebSocket = require('ws');
 
 const pubsub = new PubSub()
+
 const MESSAGE_CREATED ='MESSAGE_CREATED'
 
 const smamsh =()=>{
@@ -22,13 +23,15 @@ const ws = new WebSocket('ws://192.168.0.20:8090');
 	 
 	ws.on('message', function incoming(data) {
 		const dat = JSON.parse(data)
-		pubsub.asyncIterator(
+		
 		pubsub.publish(MESSAGE_CREATED, {
 			messageCreated:{message:dat },
-		}))
-		console.log(data)
+		})
+
+		console.log(dat)
 	
-	});
+	})
+
 	}
 const resolvers = {
 	Query: {
@@ -36,7 +39,10 @@ const resolvers = {
 	},
 	Subscription: {
 		messageCreated: {
-			subscribe: () => smamsh()
+			subscribe: () => {
+				pubsub.asyncIterator(MESSAGE_CREATED)
+				smamsh()
+			}
 		},
 	},
 }

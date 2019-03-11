@@ -25,7 +25,7 @@ const gql = require('graphql-tag');
 // A subscription query to get changes for author with parametrised id 
 // using $id as a query variable
 const SUBSCRIBE_QUERY = gql`
-subscription{messageCreated{message{result method id}}}
+subscription{messageCreated{message{result{status} error id}}}
 `;
 
 const main = () => {
@@ -35,8 +35,7 @@ const main = () => {
   // Query variables
   );
   subscriptionClient.subscribe(data => {
- const {data:{messageCreated:{message:a}}}= data
-	console.log(a)
+	console.log(data)
 })}
 
 main()
