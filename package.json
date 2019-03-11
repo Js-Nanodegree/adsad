@@ -1,0 +1,21 @@
+{
+  "name": "dasd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ws-server.js",
+  "scripts": {
+    "ws": "nodemon ws",
+    "wss": "nodemon ws-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-link": "^1.2.9",
+    "apollo-link-ws": "^1.0.15",
+    "graphql": "^14.1.1",
+    "graphql-tag": "^2.10.1",
+    "nodemon": "^1.18.10",
+    "subscriptions-transport-ws": "^0.9.15",
+    "ws": "^6.2.0"
+  }
+}
