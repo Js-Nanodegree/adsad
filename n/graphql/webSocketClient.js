@@ -18,7 +18,9 @@ const cs = conText => {
     });
 
     ws.on("message", function incoming(datas) {
-      data =  datas 
+      data =  datas
+      
+      console.log(datas) 
       resolve(data);
     });
   });
