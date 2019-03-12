@@ -2,7 +2,7 @@ const { gql } =require ('apollo-server-express')
 
 const typeDefs = gql`
 	type Query {
-		messages: [Message!]!
+		messages: Silk
 	}
 	type Subscription {
 		messageCreated: Message

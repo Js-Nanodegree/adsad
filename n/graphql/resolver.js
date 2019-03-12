@@ -1,63 +1,48 @@
-const {PubSub} = require('apollo-server')
-const withFilter = require('graphql-subscriptions').withFilter;
-const _ =require('lodash')
-
+const { PubSub, withFilter } =require ('apollo-server')
 
 const WebSocket = require('ws');
 
 const pubsub = new PubSub()
-
 const MESSAGE_CREATED = 'MESSAGE_CREATED'
 
-
-const smamsh = (data) => {
-
-	console.log(data,"запрос")
-
-  const ws = new WebSocket('ws://localhost:8000');
-  let DateConect={}
-
-  const msg = JSON.stringify({
-    id: 200,
-    method: 'order.subscribe',
-    params: [84, "BTCUSD"],
-  })
-
-
-  ws.on('open', function open() {
-    ws.send(msg);
-  });
-
-
-  ws.on('message', function incoming(data) {
-	const dat = JSON.parse(data)
-	pubsub.publish(MESSAGE_CREATED, {
-          messageCreated: {
-            message: dat
-          },
-        })
-	console.log(dat)
-  })
-}
 const resolvers = {
-  Query: {
-    messages: () => [{
-      id: 0,
-      content: 'Hello!'
-    }, {
-      id: 1,
-      content: 'Bye!'
-    }],
+	Query: {
+		messages: (context) => {
+      const wsSend = cs(context).then(data => JSON.parse(data))
+      pubsub.publish('CHAT_CHANNEL', wsSend)
+    return wsSend
+  }
   },
-  Subscription: {
-    messageCreated: {
-      subscribe: withFilter((payload, variables, context, info) => {
-		pubsub.asyncIterator(MESSAGE_CREATED)		
-		console.log(smamsh(context.connection.query))
-      })
-    },
-  },
+  
+	Subscription: {
+		messageCreated: {
+			subscribe: () => pubsub.asyncIterator(MESSAGE_CREATED),
+		},
+	},
 }
+
+let data;
+
+const cs = context => {
+  return new Promise(resolve => {
+    const ws = new WebSocket("ws://192.168.0.20:8090");
+
+    const msg = JSON.stringify({
+      id: 200,
+      method: "order.subscribe",
+      params: [84, "BTCUSD"]
+    });
+
+    ws.on("open", function open() {
+      ws.send(msg);
+    });
+
+    ws.on("message", function incoming(datas) {
+      data =  datas 
+      resolve(data);
+    });
+  });
+};
 
 
 

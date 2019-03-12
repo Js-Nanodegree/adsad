@@ -1,15 +1,11 @@
 import React from "react";
 import { Query, Subscription } from "react-apollo";
 import gql from "graphql-tag";
+import MessageTypes from "subscriptions-transport-ws/dist/message-types";
 
 
 const getUsers = gql`
-  {
-    messages{
-      id
-      content
-    }
-  }
+  {messages{result{status}method id error}}
 `;
 
 const getSubscription =gql`
@@ -45,10 +41,8 @@ class OldWay extends React.Component {
     if (error) return <div>Error</div>;
     return (
       <ul>
-        {
-          data.messages.map((a, index) => (
-          <li key={index}>{a.content}</li>
-        ))}
+        
+          <div>{data.messages.result.status}</div>
       </ul>
     );
   };

@@ -10,12 +10,13 @@ const PORT = 4000;
 const resolvers = require("./graphql/resolver");
 const schema = require("./graphql/schema");
 
+
 const { ApolloServer } = require("apollo-server-express");
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
   subscriptions: {
-    onConnect: (connectionParams, webSocket, context)=>{return ( webSocket, context)},
+    onConnect: (connectionParams, webSocket, context)=>console.log('webSocket, context'),
     onDisconnect:(connectionParams, webSocket, context) =>console.log('webSocket - del')
   },
   tracing: true
