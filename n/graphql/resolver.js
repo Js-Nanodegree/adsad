@@ -1,5 +1,5 @@
 const { PubSub, withFilter } =require ('apollo-server')
-const {cs,sus} =require('./webSocketClient')
+const {sampleQuery,sampleSubscription} =require('./webSocketClient')
 
 
 
@@ -10,7 +10,7 @@ const resolvers = {
 	Query: {
 		orderSubscribe: (root,args,context) => {
       const conText =(context.req.body.query)
-      const wsSend = cs(conText).then(data => JSON.parse(data))
+      const wsSend = sampleQuery(conText).then(data => JSON.parse(data))
       // const wsSending = cs(conText)
       
       // pubsub.publish('MESSAGE_CREATED', JSON.parse(wsSending))
@@ -20,7 +20,7 @@ const resolvers = {
   
 	Subscription: {
 		orderSubscribes: {
-			subscribe: () => pubsub.asyncIterator(MESSAGE_CREATED,sus(MESSAGE_CREATED,pubsub)),
+			subscribe: () => pubsub.asyncIterator(MESSAGE_CREATED,sampleSubscription(MESSAGE_CREATED,pubsub)),
 		},
 	},
 }

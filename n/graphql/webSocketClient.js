@@ -2,7 +2,7 @@ const WebSocket = require('ws');
 
 let data;
 
-const cs = conText => {
+const sampleQuery = conText => {
     const ws = new WebSocket("ws://192.168.0.20:8090");
     console.log(conText)
     
@@ -27,7 +27,7 @@ const cs = conText => {
 };
 
 
-const sus =(MESSAGE_CREATED,pubsub)=>{
+const sampleSubscription =(MESSAGE_CREATED,pubsub)=>{
 
   const WebSocket = require('ws');
   
@@ -42,9 +42,6 @@ const sus =(MESSAGE_CREATED,pubsub)=>{
       
       ws.on("open", function open() {
         ws.send(msg);
-        pubsub.publish(MESSAGE_CREATED, {
-          orderSubscribes:{method:'Success'},
-        })
       });
   
       ws.on("message", function incoming(datas) {
@@ -59,4 +56,4 @@ const sus =(MESSAGE_CREATED,pubsub)=>{
 
 
 
-module.exports = {cs,sus}
+module.exports = {sampleQuery,sampleSubscription}
