@@ -15,6 +15,7 @@ const { ApolloServer } = require("apollo-server-express");
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
+  context:(req)=>({...req}),
   subscriptions: {
     onConnect: (connectionParams, webSocket, context)=>console.log('webSocket, context'),
     onDisconnect:(connectionParams, webSocket, context) =>console.log('webSocket - del')

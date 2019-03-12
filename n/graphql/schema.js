@@ -2,13 +2,12 @@ const { gql } =require ('apollo-server-express')
 
 const typeDefs = gql`
 	type Query {
-		messages: Silk
+		orderSubscribe(Apikey:String,AuthShex:String,Nonce:Int,params:String): Silk
 	}
 	type Subscription {
 		messageCreated: Message
 	}
 	type Message {
-		id: String
 		message:Silk
 	}
 	type Silk{
@@ -21,6 +20,11 @@ const typeDefs = gql`
 	type Status{
 		status:String
 	}
+
 `
+// const Nano = gql`
+// 	extend type Query { orderSubscribe (Apikey:String,AuthShex:String,Nonce:Int,params:String){
+// 	messages: Silk}`
+	
 
 module.exports= typeDefs

@@ -1,20 +1,14 @@
 import React from "react";
 import { Query, Subscription } from "react-apollo";
 import gql from "graphql-tag";
-import MessageTypes from "subscriptions-transport-ws/dist/message-types";
 
 
 const getUsers = gql`
-  {messages{result{status}method id error}}
+  {orderSubscribe(Apikey:"dsad" AuthShex:"sfadas" Nonce:151 params:"BTCUSD"){result{status}error id method}}
 `;
 
 const getSubscription =gql`
-subscription{
-  messageCreated{
-    id
-    content
-  }
-}`
+subscription{messageCreated{message{result{status}method id error}}}`
 
 
 class OlsdWay extends React.Component {
@@ -25,7 +19,7 @@ class OlsdWay extends React.Component {
       // console.log(data.messageCreated.content)
       <ul>
         <h2>OLD WAY</h2>
-        {data.messageCreated.content}
+        {data.messageCreated.message.result.status}
       </ul>
     );
   };
@@ -42,7 +36,7 @@ class OldWay extends React.Component {
     return (
       <ul>
         
-          <div>{data.messages.result.status}</div>
+          <div>{data.orderSubscribe.result.status}</div>
       </ul>
     );
   };
